@@ -19,12 +19,15 @@ module.exports.createProduct = async (req, res, next) => {
   } finally {
     client.close();
   }
-  res.status(200).json({ Message: "Product created!", product: newProduct });
+  res.status(200).json({
+    Message: "This product created in Database:",
+    product: newProduct,
+  });
 };
 
 module.exports.getProducts = async (req, res, next) => {
   const client = new MongoClient(url);
-  let products = [];
+  let products;
 
   try {
     await client.connect();
@@ -36,5 +39,8 @@ module.exports.getProducts = async (req, res, next) => {
   } finally {
     client.close();
   }
-  res.status(200).json({ Message: "Products: ", product: products });
+  res.status(200).json({
+    Message: "These products retrieved from Database: ",
+    products: products,
+  });
 };
