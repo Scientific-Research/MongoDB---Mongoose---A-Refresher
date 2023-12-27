@@ -7,4 +7,8 @@ const productSchema = new mongoose.Schema({
 });
 
 // mongoose.model('name of collection', name of our Schema)
-module.exports.Product = mongoose.model("Product", productSchema);
+// module.exports.Product = mongoose.model("Product", productSchema); // this doesn't work!
+// const Product = mongoose.model("Product", productSchema);
+// module.exports = Product;
+//or
+module.exports = mongoose.model("Product", productSchema);
