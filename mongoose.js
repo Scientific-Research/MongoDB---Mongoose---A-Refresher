@@ -21,7 +21,9 @@ module.exports.createProduct = async (req, res, next) => {
     name: req.body.name,
     price: req.body.price,
   });
+  console.log(createdProduct); // => shows us name, price and _id: new ObjectId('...'),
   const result = await createdProduct.save();
+  console.log(createdProduct); // => shows us after .save() all above items plus --v:0
 
   res.status(200).json({ message: "Our Created Product:", Product: result });
 };
