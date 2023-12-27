@@ -23,5 +23,18 @@ module.exports.createProduct = async (req, res, next) => {
   });
   const result = await createdProduct.save();
 
-  res.status(200).json({ message: "Our Created Product:", product: result });
+  res.status(200).json({ message: "Our Created Product:", Product: result });
+};
+
+module.exports.getProducts = async (req, res, next) => {
+  try {
+    const products = await Product.find();
+    console.log(products);
+    res.status(200).json({
+      Message: "These products retrieved from Database: ",
+      Products: products,
+    });
+  } catch (error) {
+    return res.status(500).json({ Message: "Could not find the data!" });
+  }
 };
