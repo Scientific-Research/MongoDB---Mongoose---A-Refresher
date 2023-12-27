@@ -16,9 +16,25 @@ module.exports.createProduct = async (req, res, next) => {
     const result = await db.collection("products").insertOne(newProduct);
   } catch (error) {
     return res.status(500).json({ message: "Could not store data!" });
+  } finally {
+    client.close();
   }
-  client.close();
   res.status(200).json({ Message: "Product created!", product: newProduct });
 };
 
-module.exports.getProducts = async (req, res, next) => {};
+module.exports.getProducts = async (req, res, next) => {
+  const client = new MongoClient(url);
+  let products = [];
+
+  try {
+    await client.connect();
+    const db = client.db();
+    products = await db.collection("products").find().toArray();
+    console.log(products);
+  } catch (error) {
+    return res.status(500).json({ Message: "Could not find the data!" });
+  } finally {
+    client.close();
+  }
+  res.status(200).json({ Message: "Products: ", product: products });
+};
